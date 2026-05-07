@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-rgb: 255, 255, 255;
+    --surface-hover: #f1f5f9;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --text-secondary: #475569;
+    --brand: #6366f1;
+    --brand-light: #818cf8;
+    --brand-dark: #4f46e5;
+    --accent: #ec4899;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --coin: #eab308;
+  }
+
+  .dark {
+    --bg: #0b0f1a;
+    --surface: #151b2d;
+    --surface-rgb: 21, 27, 45;
+    --surface-hover: #1e273f;
+    --border: #242e47;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-secondary: #cbd5e1;
+    --brand: #818cf8;
+    --brand-light: #a5b4fc;
+    --brand-dark: #6366f1;
+    --accent: #f472b6;
+    --success: #10b981;
+    --danger: #f87171;
+    --warning: #fbbf24;
+    --coin: #facc15;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+.text-outline {
+  -webkit-text-stroke: 1px var(--text);
+  color: transparent;
+}
+.dark .text-outline {
+  -webkit-text-stroke: 1px var(--text);
+}
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.dark .glass {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glow-brand {
+  box-shadow: 0 0 15px 2px rgba(139, 92, 246, 0.3);
+}
+
+.glow-accent {
+  box-shadow: 0 0 15px 2px rgba(6, 182, 212, 0.3);
+}
+
+.shadow-glow-brand {
+  box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4), 0 8px 10px -6px rgba(139, 92, 246, 0.4);
+}
+
+.shadow-glow-accent {
+  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4), 0 8px 10px -6px rgba(6, 182, 212, 0.4);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* Timer digits */
+.timer-digit {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Coin glow */
+.coin-glow {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+}
+
+/* Avatar container */
+.avatar-ring {
+  background: conic-gradient(var(--brand), var(--accent), var(--brand));
+  padding: 3px;
+  border-radius: 50%;
+}
+
+/* Level progress bar animation */
+.level-bar {
+  background: linear-gradient(90deg, var(--brand), var(--accent));
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Safe area for mobile bottom nav */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ============================
+   Notebook Editor Styles
+   ============================ */
+.prose-editor {
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.prose-editor:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.prose-editor h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 1rem 0 0.5rem;
+  line-height: 1.3;
+}
+
+.prose-editor h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0.75rem 0 0.5rem;
+  line-height: 1.3;
+}
+
+.prose-editor h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.4rem;
+}
+
+.prose-editor p {
+  margin: 0.3rem 0;
+}
+
+.prose-editor ul, .prose-editor ol {
+  padding-left: 1.5rem;
+  margin: 0.3rem 0;
+}
+
+.prose-editor ul {
+  list-style: disc;
+}
+
+.prose-editor ol {
+  list-style: decimal;
+}
+
+.prose-editor li {
+  margin: 0.15rem 0;
+}
+
+.prose-editor pre {
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.prose-editor code {
+  background: var(--surface-hover);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+}
+
+.prose-editor blockquote {
+  border-left: 3px solid var(--brand);
+  padding-left: 1rem;
+  margin: 0.5rem 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.prose-editor strong {
+  font-weight: 700;
+}
+
+.prose-editor em {
+  font-style: italic;
+}
+
+.prose-editor u {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ============================
+   AI Message Styles
+   ============================ */
+.ai-message-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.ai-message-content code {
+  background: var(--surface-hover);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+}
+
+/* ============================
+   Flashcard 3D Flip
+   ============================ */
+.flashcard-flip {
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.flashcard-flip.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  backface-visibility: hidden;
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+/* ============================
+   Calendar Styles
+   ============================ */
+input[type="date"],
+input[type="time"] {
+  color-scheme: light;
+}
+
+.dark input[type="date"],
+.dark input[type="time"] {
+  color-scheme: dark;
+}
+
+/* Select styles */
+select {
+  color: var(--text);
+  background-color: var(--surface);
+}
+
+select option {
+  background-color: var(--surface);
+  color: var(--text);
+}
