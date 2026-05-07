@@ -108,7 +108,7 @@ export const AppLayout = () => {
             </div>
           )}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold truncate">{displayName}</p>
+            <p className="text-sm font-bold truncate">{getGreeting()}, {displayName}</p>
             <p className="text-[10px] text-text-muted truncate">{user?.email || profile.bio || 'Tap to set up profile'}</p>
           </div>
         </Link>
