@@ -12,6 +12,7 @@ import {
   Menu, Bell, Clock as ClockIcon, Flame, Users, Phone, Mail, CloudCheck
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { Logo } from '../common/Logo';
 
 const CoinButtonWithPopover = memo(({ coins, isSidebar = false }: { coins: number; isSidebar?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -158,10 +159,14 @@ export const AppLayout = () => {
       {/* Desktop Sidebar */}
       <aside className="w-80 hidden md:flex flex-col border-r border-border glass fixed h-full z-20">
         <div className="p-6 pb-4">
-          <div className="flex justify-center mb-2">
-            <h1 className="text-4xl font-black tracking-tight leading-none">
-              <span className="bg-gradient-to-r from-brand via-accent to-brand-light bg-clip-text text-transparent italic uppercase">HASH</span>
-            </h1>
+          <div className="flex items-center gap-4 mb-2">
+            <Logo size={48} />
+            <div className="flex flex-col">
+              <h1 className="text-3xl font-black tracking-tight leading-none">
+                <span className="bg-gradient-to-r from-brand via-accent to-brand-light bg-clip-text text-transparent italic uppercase">HASH</span>
+              </h1>
+              <p className="text-[10px] font-black text-brand/60 uppercase tracking-widest mt-1">Study Tracker</p>
+            </div>
           </div>
           <div className="flex flex-col mt-1">
             <p className="text-[11px] font-bold text-text-muted uppercase tracking-[0.2em]">Study Smarter, Level Up</p>
@@ -306,7 +311,10 @@ export const AppLayout = () => {
           </div>
 
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:hidden">
-            <h2 className="text-2xl font-black italic tracking-tighter text-brand">HASH</h2>
+            <div className="flex items-center gap-2">
+              <Logo size={32} />
+              <h2 className="text-2xl font-black italic tracking-tighter text-brand">HASH</h2>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">

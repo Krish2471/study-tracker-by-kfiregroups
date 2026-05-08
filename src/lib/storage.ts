@@ -1,5 +1,5 @@
 export const getAccountId = () => {
-  return 'account1';
+  return 'local-cloud-account';
 };
 
 export const setAccountId = (id: string) => {

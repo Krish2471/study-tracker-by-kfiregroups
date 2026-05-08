@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { MOTIVATIONAL_QUOTES } from '../utils/constants';
 import { format, isToday } from 'date-fns';
+import { Logo } from '../components/common/Logo';
 
 
 export const HomePage = () => {
@@ -95,9 +96,13 @@ export const HomePage = () => {
           <GraduationCap size={160} />
         </div>
         <div className="relative z-10 w-full mb-8">
-          <div className="flex items-center gap-3">
-            <h1 className="text-4xl md:text-5xl font-black tracking-tighter italic text-brand uppercase">HASH</h1>
-            <div className="h-px flex-1 bg-gradient-to-r from-brand/50 to-transparent" />
+          <div className="flex items-center gap-4">
+            <Logo size={48} />
+            <div className="flex flex-col">
+              <h1 className="text-3xl md:text-4xl font-black tracking-tighter italic text-brand uppercase leading-none">HASH</h1>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand/60 mt-1">Study Tracker</span>
+            </div>
+            <div className="h-px flex-1 bg-gradient-to-r from-brand/50 to-transparent ml-4" />
             <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-[10px] font-black uppercase tracking-widest backdrop-blur-md">
               Daily Wisdom
             </span>
