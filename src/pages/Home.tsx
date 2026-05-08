@@ -94,15 +94,16 @@ export const HomePage = () => {
         <div className="absolute top-0 right-0 p-4 opacity-10">
           <GraduationCap size={160} />
         </div>
-        <div className="relative z-10 max-w-2xl text-center mx-auto">
-          <div className="flex flex-col items-center justify-center mb-6">
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic mb-4">
-              <span className="bg-gradient-to-r from-white via-brand-light to-white bg-clip-text text-transparent uppercase">HASH</span>
-            </h1>
+        <div className="relative z-10 w-full mb-8">
+          <div className="flex items-center gap-3">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter italic text-brand uppercase">HASH</h1>
+            <div className="h-px flex-1 bg-gradient-to-r from-brand/50 to-transparent" />
             <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-[10px] font-black uppercase tracking-widest backdrop-blur-md">
               Daily Wisdom
             </span>
           </div>
+        </div>
+        <div className="max-w-2xl text-center mx-auto relative z-10 mb-12">
           <h2 className="text-2xl md:text-3xl font-black leading-tight italic">
             "{quote}"
           </h2>

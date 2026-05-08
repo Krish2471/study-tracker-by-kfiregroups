@@ -72,11 +72,6 @@ export const useAuthStore = create<AuthState>()(
             await firebaseSignOut(auth);
           }
           
-          // Toggle account ID to switch profiles on sign out
-          const current = localStorage.getItem('hash-current-account-id') || 'account1';
-          const next = current === 'account1' ? 'account2' : 'account1';
-          localStorage.setItem('hash-current-account-id', next);
-          
           // Clear session flag so it shows GetStarted again
           sessionStorage.removeItem('hash_session_launched');
 

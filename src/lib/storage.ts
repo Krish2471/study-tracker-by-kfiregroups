@@ -1,5 +1,5 @@
 export const getAccountId = () => {
-  return localStorage.getItem('hash-current-account-id') || 'account1';
+  return 'account1';
 };
 
 export const setAccountId = (id: string) => {
