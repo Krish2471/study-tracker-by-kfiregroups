@@ -212,6 +212,7 @@ export const NotebookPage = () => {
   };
 
   const highlightColors = [
+    // Row 1
     { name: 'Yellow', color: '#fef08a' },
     { name: 'Green', color: '#bbf7d0' },
     { name: 'Blue', color: '#bfdbfe' },
@@ -219,11 +220,21 @@ export const NotebookPage = () => {
     { name: 'Pink', color: '#fbcfe8' },
     { name: 'Orange', color: '#fed7aa' },
     { name: 'Teal', color: '#99f6e4' },
+    // Row 2
     { name: 'Rose', color: '#fecdd3' },
     { name: 'Indigo', color: '#c7d2fe' },
     { name: 'Amber', color: '#fde68a' },
     { name: 'Lime', color: '#d9f99d' },
     { name: 'Cyan', color: '#a5f3fc' },
+    { name: 'Emerald', color: '#6ee7b7' },
+    { name: 'Sky', color: '#7dd3fc' },
+    // Row 3
+    { name: 'Violet', color: '#c4b5fd' },
+    { name: 'Fuchsia', color: '#f5d0fe' },
+    { name: 'Gold', color: '#fbbf24' },
+    { name: 'Mint', color: '#d1fae5' },
+    { name: 'Lavender', color: '#ede9fe' },
+    { name: 'Peach', color: '#ffedd5' },
     { name: 'Clear', color: 'transparent', icon: X },
   ];
 
@@ -432,7 +443,7 @@ export const NotebookPage = () => {
             </div>
 
             {/* Formatting Toolbar */}
-            <div className="flex items-center gap-0.5 px-3 py-2 border-b border-border overflow-x-auto">
+            <div className="flex flex-wrap items-center gap-0.5 px-3 py-2 border-b border-border">
               {[
                 { icon: Bold, cmd: 'bold', title: 'Bold (⌘B)' },
                 { icon: Italic, cmd: 'italic', title: 'Italic (⌘I)' },
@@ -482,7 +493,7 @@ export const NotebookPage = () => {
                       initial={{ opacity: 0, scale: 0.9, y: 5 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.9, y: 5 }}
-                      className="absolute bottom-full left-0 mb-2 p-3 glass rounded-2xl border border-border shadow-2xl z-50 min-w-[280px]"
+                      className="absolute top-full left-0 mt-2 p-3 glass rounded-2xl border border-border shadow-2xl z-[100] min-w-[280px]"
                     >
                       <div className="flex items-center justify-between mb-2 px-1">
                         <span className="text-[10px] font-black uppercase tracking-widest text-text-muted">Highlighter</span>
@@ -498,7 +509,8 @@ export const NotebookPage = () => {
                               e.preventDefault();
                               e.stopPropagation();
                               editorRef.current?.focus();
-                              execCommand('hiliteColor', hc.color);
+                              document.execCommand('backColor', false, hc.color);
+                              document.execCommand('hiliteColor', false, hc.color);
                             }}
                             className="w-8 h-8 rounded-lg border border-border/50 flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-sm hover:shadow-md"
                             style={{ backgroundColor: hc.color === 'transparent' ? 'transparent' : hc.color }}
