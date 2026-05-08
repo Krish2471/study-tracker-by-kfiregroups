@@ -170,13 +170,20 @@ export const TimerPage = () => {
         </motion.div>
 
         {!isRunning && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-[11px] font-black text-brand uppercase tracking-[0.25em] bg-brand/5 py-2 rounded-xl border border-brand/10"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1,
+              boxShadow: ["0 0 0px rgba(139, 92, 246, 0)", "0 0 20px rgba(139, 92, 246, 0.3)", "0 0 0px rgba(139, 92, 246, 0)"]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-center py-4 px-6 rounded-2xl bg-brand/10 border-2 border-brand/30"
           >
-            Please select a subject before starting the timer
-          </motion.p>
+            <p className="text-[13px] font-black text-brand uppercase tracking-[0.3em]">
+              Please select a subject before starting the timer
+            </p>
+          </motion.div>
         )}
       </div>
 
