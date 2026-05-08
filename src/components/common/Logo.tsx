@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../../assets/logo.png';
+import logoVid from '../../assets/logo.webm';
 
 interface LogoProps {
   className?: string;
@@ -15,11 +15,14 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 40, showText 
         style={{ width: size, height: size }}
       >
         <div className="absolute inset-0 bg-brand/20 blur-xl group-hover:bg-brand/30 transition-all rounded-full" />
-        <div className="relative w-full h-full flex items-center justify-center">
-          <img 
-            src={logoImg} 
-            alt="KFIRE GROUPS" 
-            className="w-full h-full object-contain"
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-full">
+          <video 
+            src={logoVid} 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="w-full h-full object-cover"
           />
         </div>
       </div>
