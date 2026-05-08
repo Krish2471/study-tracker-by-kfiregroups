@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../hooks/useTheme';
@@ -14,7 +14,7 @@ import {
 import { format } from 'date-fns';
 import { Logo } from '../common/Logo';
 
-const CoinButtonWithPopover = ({ coins, isSidebar = false }: { coins: number; isSidebar?: boolean }) => {
+const CoinButtonWithPopover = memo(({ coins, isSidebar = false }: { coins: number; isSidebar?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -24,10 +24,19 @@ const CoinButtonWithPopover = ({ coins, isSidebar = false }: { coins: number; is
         setIsOpen(false);
       }
     };
+    
+    // Small delay to prevent the opening click from triggering the close logic
+    let timer: ReturnType<typeof setTimeout>;
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      timer = setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+      }, 10);
     }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [isOpen]);
 
   return (
@@ -77,7 +86,7 @@ const CoinButtonWithPopover = ({ coins, isSidebar = false }: { coins: number; is
       </AnimatePresence>
     </div>
   );
-};
+});
 
 export const AppLayout = () => {
   const { theme, toggleTheme } = useTheme();
