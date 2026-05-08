@@ -93,9 +93,8 @@ export const HomePage = () => {
         <div className="absolute top-0 right-0 p-4 opacity-10">
           <GraduationCap size={160} />
         </div>
-        <div className="relative z-10 max-w-2xl">
-          <div className="flex items-center gap-4 mb-4">
-            <Logo size={48} />
+        <div className="relative z-10 max-w-2xl text-center mx-auto">
+          <div className="flex items-center justify-center mb-4">
             <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-[10px] font-black uppercase tracking-widest backdrop-blur-md">
               Daily Wisdom
             </span>
@@ -103,8 +102,8 @@ export const HomePage = () => {
           <h2 className="text-2xl md:text-3xl font-black leading-tight italic">
             "{quote}"
           </h2>
-          <div className="flex flex-wrap items-center gap-4 mt-8">
-            <Link to="/timer" className="bg-white text-brand px-6 py-3 rounded-2xl font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2 shadow-lg">
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <Link to="/timer" className="bg-white text-brand px-6 py-3 rounded-2xl font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2 shadow-lg mx-auto">
               <Timer size={18} /> Start Focus Session
             </Link>
           </div>
