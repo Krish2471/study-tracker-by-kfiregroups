@@ -31,21 +31,21 @@ export const GetStarted = () => {
   const features = [
     { 
       icon: Clock, 
-      title: 'Deep Focus Timer', 
-      desc: 'Immersive study sessions with ambient soundscapes and distraction-free interface.',
+      title: 'Study Tracker', 
+      desc: 'Immersive study sessions with ambient soundscapes and high-performance tracking.',
       color: 'from-blue-500 to-indigo-600'
-    },
-    { 
-      icon: Brain, 
-      title: 'Smart Study Planner', 
-      desc: 'Automatically sync exams, goals, and tasks into a unified study schedule.',
-      color: 'from-purple-500 to-pink-600'
     },
     { 
       icon: Target, 
       title: 'Gamified Progress', 
-      desc: 'Earn coins, level up your avatar, and track your study streaks.',
+      desc: 'Earn coins, level up your avatar, and track your study streaks to stay motivated.',
       color: 'from-orange-400 to-red-600'
+    },
+    { 
+      icon: Brain, 
+      title: 'Smart Planner', 
+      desc: 'Automatically sync exams, goals, and tasks into a unified high-end schedule.',
+      color: 'from-purple-500 to-pink-600'
     }
   ];
 
@@ -155,8 +155,10 @@ export const GetStarted = () => {
 
           {/* Trusted By Section */}
           <motion.div
+            id="about"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.6 }}
             className="pt-24"
           >
@@ -194,7 +196,7 @@ export const GetStarted = () => {
       <section id="features" className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <h2 id="about" className="text-4xl md:text-5xl font-black tracking-tight mb-4">Master Your Academic Life</h2>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">Master Your Academic Life</h2>
             <p className="text-text-muted text-lg max-w-2xl mx-auto">Everything you need to stay focused, organized, and ahead of the curve.</p>
           </div>
           

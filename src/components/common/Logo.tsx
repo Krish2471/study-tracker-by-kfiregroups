@@ -15,11 +15,11 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 40, showText 
         style={{ width: size, height: size }}
       >
         <div className="absolute inset-0 bg-brand/20 blur-xl group-hover:bg-brand/30 transition-all rounded-full" />
-        <div className="relative w-full h-full flex items-center justify-center">
+        <div className="relative w-full h-full flex items-center justify-center rounded-xl border border-brand/10 shadow-lg shadow-brand/5 overflow-hidden">
           <img 
             src={logoImg} 
             alt="KFIRE GROUPS" 
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover scale-110"
           />
         </div>
       </div>
