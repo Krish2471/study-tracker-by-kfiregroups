@@ -95,7 +95,10 @@ export const HomePage = () => {
           <GraduationCap size={160} />
         </div>
         <div className="relative z-10 max-w-2xl text-center mx-auto">
-          <div className="flex items-center justify-center mb-4">
+          <div className="flex flex-col items-center justify-center mb-6">
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic mb-4">
+              <span className="bg-gradient-to-r from-white via-brand-light to-white bg-clip-text text-transparent uppercase">HASH</span>
+            </h1>
             <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-[10px] font-black uppercase tracking-widest backdrop-blur-md">
               Daily Wisdom
             </span>
