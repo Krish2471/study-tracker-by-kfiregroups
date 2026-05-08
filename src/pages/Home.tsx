@@ -121,7 +121,10 @@ export const HomePage = () => {
             <p className="text-sm font-bold text-text-muted">min</p>
           </div>
           <div className="mt-4 h-1.5 w-full bg-border rounded-full overflow-hidden">
-            <div className="h-full bg-brand rounded-full w-[65%]" />
+            <div 
+              className="h-full bg-brand rounded-full transition-all duration-1000" 
+              style={{ width: `${Math.min((todayMinutes / 300) * 100, 100)}%` }} 
+            />
           </div>
         </div>
 
