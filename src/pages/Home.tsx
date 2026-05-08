@@ -289,6 +289,54 @@ export const HomePage = () => {
 
         {/* Right Column: Schedule & Tasks */}
         <div className="space-y-6">
+          {/* Goals & Exams Section */}
+          <div className="space-y-4">
+            {exams.length > 0 && (
+              <div className="glass rounded-[2rem] p-6 border border-danger/20 bg-danger/5 shadow-glow-danger/10">
+                <div className="flex items-center gap-2 mb-4">
+                  <Trophy size={18} className="text-danger" />
+                  <h3 className="font-black text-lg text-danger uppercase tracking-tighter">Exams</h3>
+                </div>
+                <div className="space-y-3">
+                  {exams.slice(0, 2).map(exam => {
+                    const daysLeft = differenceInDays(new Date(exam.date), new Date());
+                    return (
+                      <div key={exam.id} className="flex items-center justify-between p-3 rounded-2xl bg-surface/80 border border-danger/10">
+                        <div>
+                          <p className="text-xs font-black truncate max-w-[120px]">{exam.title}</p>
+                          <p className="text-[9px] font-bold text-text-muted mt-0.5">{format(new Date(exam.date), 'MMM d, yyyy')}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className={`text-xl font-black ${daysLeft <= 7 ? 'text-danger animate-pulse' : 'text-text'}`}>{daysLeft}</p>
+                          <p className="text-[8px] font-black text-text-muted uppercase tracking-tighter">Days Left</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <Link to="/exams" className="block text-center text-[9px] font-black text-danger/60 hover:text-danger uppercase tracking-widest mt-4">View All Exams</Link>
+              </div>
+            )}
+
+            {goals.length > 0 && (
+              <div className="glass rounded-[2rem] p-6 border border-accent/20 bg-accent/5">
+                <div className="flex items-center gap-2 mb-4">
+                  <Target size={18} className="text-accent" />
+                  <h3 className="font-black text-lg text-accent uppercase tracking-tighter">Goals</h3>
+                </div>
+                <div className="space-y-3">
+                  {goals.filter(g => !g.completed).slice(0, 2).map(goal => (
+                    <div key={goal.id} className="p-3 rounded-2xl bg-surface/80 border border-accent/10">
+                      <p className="text-xs font-black truncate">{goal.title}</p>
+                      <p className="text-[9px] font-bold text-text-muted mt-0.5 uppercase tracking-wider">Deadline: {format(new Date(goal.targetDate), 'MMM d')}</p>
+                    </div>
+                  ))}
+                </div>
+                <Link to="/exams" className="block text-center text-[9px] font-black text-accent/60 hover:text-accent uppercase tracking-widest mt-4">Manage Goals</Link>
+              </div>
+            )}
+          </div>
+
           {/* Quick Tasks */}
           <div className="glass rounded-[2rem] p-6 border border-border">
             <div className="flex items-center justify-between mb-5">
@@ -380,54 +428,6 @@ export const HomePage = () => {
             >
               {planActivated ? 'Plan Activated' : 'Accept Focus Plan'}
             </button>
-          </div>
-
-          {/* Goals & Exams Section */}
-          <div className="space-y-4">
-            {exams.length > 0 && (
-              <div className="glass rounded-[2rem] p-6 border border-danger/20 bg-danger/5 shadow-glow-danger/10">
-                <div className="flex items-center gap-2 mb-4">
-                  <Trophy size={18} className="text-danger" />
-                  <h3 className="font-black text-lg text-danger uppercase tracking-tighter">Exams</h3>
-                </div>
-                <div className="space-y-3">
-                  {exams.slice(0, 2).map(exam => {
-                    const daysLeft = differenceInDays(new Date(exam.date), new Date());
-                    return (
-                      <div key={exam.id} className="flex items-center justify-between p-3 rounded-2xl bg-surface/80 border border-danger/10">
-                        <div>
-                          <p className="text-xs font-black truncate max-w-[120px]">{exam.title}</p>
-                          <p className="text-[9px] font-bold text-text-muted mt-0.5">{format(new Date(exam.date), 'MMM d, yyyy')}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className={`text-xl font-black ${daysLeft <= 7 ? 'text-danger animate-pulse' : 'text-text'}`}>{daysLeft}</p>
-                          <p className="text-[8px] font-black text-text-muted uppercase tracking-tighter">Days Left</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <Link to="/exams" className="block text-center text-[9px] font-black text-danger/60 hover:text-danger uppercase tracking-widest mt-4">View All Exams</Link>
-              </div>
-            )}
-
-            {goals.length > 0 && (
-              <div className="glass rounded-[2rem] p-6 border border-accent/20 bg-accent/5">
-                <div className="flex items-center gap-2 mb-4">
-                  <Target size={18} className="text-accent" />
-                  <h3 className="font-black text-lg text-accent uppercase tracking-tighter">Goals</h3>
-                </div>
-                <div className="space-y-3">
-                  {goals.filter(g => !g.completed).slice(0, 2).map(goal => (
-                    <div key={goal.id} className="p-3 rounded-2xl bg-surface/80 border border-accent/10">
-                      <p className="text-xs font-black truncate">{goal.title}</p>
-                      <p className="text-[9px] font-bold text-text-muted mt-0.5 uppercase tracking-wider">Deadline: {format(new Date(goal.targetDate), 'MMM d')}</p>
-                    </div>
-                  ))}
-                </div>
-                <Link to="/exams" className="block text-center text-[9px] font-black text-accent/60 hover:text-accent uppercase tracking-widest mt-4">Manage Goals</Link>
-              </div>
-            )}
           </div>
         </div>
       </div>
