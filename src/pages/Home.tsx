@@ -123,7 +123,10 @@ export const HomePage = () => {
           <div className="mt-4 h-1.5 w-full bg-border rounded-full overflow-hidden">
             <div 
               className="h-full bg-brand rounded-full transition-all duration-1000" 
-              style={{ width: `${Math.min((todayMinutes / 300) * 100, 100)}%` }} 
+              style={{ 
+                width: todayMinutes > 0 ? `${Math.min((todayMinutes / 300) * 100, 100)}%` : '0%',
+                opacity: todayMinutes > 0 ? 1 : 0
+              }} 
             />
           </div>
         </div>
