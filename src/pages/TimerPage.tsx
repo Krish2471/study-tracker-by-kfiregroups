@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Square, Check, Clock, Coffee, CloudRain, Waves, VolumeX, Moon, Sparkles, Plus } from 'lucide-react';
 import { useTimerStore } from '../store/useTimerStore';
@@ -138,6 +138,17 @@ export const TimerPage = () => {
     }
   }, [elapsed, stopTimer, addCoins, addXP, updateStreak]);
 
+  const sortedSubjects = useMemo(() => {
+    const defaults = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English', 'History', 'Computer Science', 'Economics'];
+    return [...subjects].sort((a, b) => {
+      const aIsDefault = defaults.includes(a);
+      const bIsDefault = defaults.includes(b);
+      if (!aIsDefault && bIsDefault) return -1;
+      if (aIsDefault && !bIsDefault) return 1;
+      return a.localeCompare(b);
+    });
+  }, [subjects]);
+
   return (
     <motion.div 
       initial={{ opacity: 0 }} 
@@ -162,7 +173,7 @@ export const TimerPage = () => {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em]"
+            className="text-center text-[11px] font-black text-brand uppercase tracking-[0.25em] bg-brand/5 py-2 rounded-xl border border-brand/10"
           >
             Please select a subject before starting the timer
           </motion.p>
@@ -356,7 +367,7 @@ export const TimerPage = () => {
         >
           <h3 className="font-bold text-lg mb-4">Select Subjects</h3>
           <div className="flex flex-wrap gap-2">
-            {subjects.map((sub) => {
+            {sortedSubjects.map((sub: string) => {
               const isSelected = selectedSubjects.includes(sub);
               return (
                 <motion.button
