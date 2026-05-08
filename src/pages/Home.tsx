@@ -192,6 +192,40 @@ export const HomePage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Progress Chart & Exam Countdown */}
         <div className="lg:col-span-2 space-y-6">
+          {/* Weekly Activity Chart */}
+          <div className="glass rounded-[2rem] p-6 border border-border">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="font-black text-lg">Weekly Activity</h3>
+                <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">XP gained per day</p>
+              </div>
+              <select className="bg-surface border-border text-[10px] font-black rounded-lg px-2 py-1 outline-none">
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+              </select>
+            </div>
+            
+            <div className="h-48 w-full flex items-end justify-between gap-2 px-2">
+              {weeklyXP.map((xp, i) => (
+                <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
+                  <div className="relative w-full">
+                    <motion.div 
+                      initial={{ height: 0 }}
+                      animate={{ height: `${(xp / 1200) * 100}%` }}
+                      className="w-full bg-gradient-to-t from-brand/40 to-brand rounded-t-xl group-hover:to-accent transition-all duration-500 shadow-glow-brand"
+                    />
+                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface border border-border px-2 py-1 rounded text-[9px] font-black opacity-0 group-hover:opacity-100 transition-opacity">
+                      {xp} XP
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-black text-text-muted uppercase">
+                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Main Goals & Exams Section (Large & Visible) */}
           {(exams.length > 0 || goals.length > 0) && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -259,40 +293,6 @@ export const HomePage = () => {
               )}
             </div>
           )}
-
-          {/* Weekly Activity Chart */}
-          <div className="glass rounded-[2rem] p-6 border border-border">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="font-black text-lg">Weekly Activity</h3>
-                <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">XP gained per day</p>
-              </div>
-              <select className="bg-surface border-border text-[10px] font-black rounded-lg px-2 py-1 outline-none">
-                <option>Last 7 Days</option>
-                <option>Last 30 Days</option>
-              </select>
-            </div>
-            
-            <div className="h-48 w-full flex items-end justify-between gap-2 px-2">
-              {weeklyXP.map((xp, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                  <div className="relative w-full">
-                    <motion.div 
-                      initial={{ height: 0 }}
-                      animate={{ height: `${(xp / 1200) * 100}%` }}
-                      className="w-full bg-gradient-to-t from-brand/40 to-brand rounded-t-xl group-hover:to-accent transition-all duration-500 shadow-glow-brand"
-                    />
-                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface border border-border px-2 py-1 rounded text-[9px] font-black opacity-0 group-hover:opacity-100 transition-opacity">
-                      {xp} XP
-                    </div>
-                  </div>
-                  <span className="text-[9px] font-black text-text-muted uppercase">
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* Latest Session & Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
