@@ -27,7 +27,10 @@ export const NotebookPage = () => {
   const [filterSubject, setFilterSubject] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
   const [isDrawingMode, setIsDrawingMode] = useState(false);
+  const [showHighlighterPalette, setShowHighlighterPalette] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
+  const paletteRef = useRef<HTMLDivElement>(null);
+  const highlighterBtnRef = useRef<HTMLButtonElement>(null);
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeNotebook = notebooks.find((n) => n.id === activeNotebookId);
@@ -103,6 +106,20 @@ export const NotebookPage = () => {
       tags: activeNotebook.tags.filter((t) => t !== tag),
     });
   };
+
+  // Close palette on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (paletteRef.current && !paletteRef.current.contains(event.target as Node) && 
+          highlighterBtnRef.current && !highlighterBtnRef.current.contains(event.target as Node)) {
+        setShowHighlighterPalette(false);
+      }
+    };
+    if (showHighlighterPalette) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showHighlighterPalette]);
 
   const getWordCount = (html: string) => {
     const text = html.replace(/<[^>]*>/g, ' ').trim();
@@ -197,11 +214,17 @@ export const NotebookPage = () => {
   const highlightColors = [
     { name: 'Yellow', color: '#fef08a' },
     { name: 'Green', color: '#bbf7d0' },
-    { name: 'Blue', color: '#bae6fd' },
+    { name: 'Blue', color: '#bfdbfe' },
     { name: 'Purple', color: '#e9d5ff' },
-    { name: 'Pink', color: '#fecdd3' },
-    { name: 'Orange', color: '#ffedd5' },
-    { name: 'None', color: 'transparent', icon: X },
+    { name: 'Pink', color: '#fbcfe8' },
+    { name: 'Orange', color: '#fed7aa' },
+    { name: 'Teal', color: '#99f6e4' },
+    { name: 'Rose', color: '#fecdd3' },
+    { name: 'Indigo', color: '#c7d2fe' },
+    { name: 'Amber', color: '#fde68a' },
+    { name: 'Lime', color: '#d9f99d' },
+    { name: 'Cyan', color: '#a5f3fc' },
+    { name: 'Clear', color: 'transparent', icon: X },
   ];
 
 
@@ -440,24 +463,54 @@ export const NotebookPage = () => {
               )}
 
               <div className="w-px h-5 bg-border mx-1" />
-              <div className="flex items-center gap-1.5 px-2 py-1 bg-surface-hover/30 rounded-xl border border-border/50">
-                <Highlighter size={12} className="text-text-muted mr-1" />
-                {highlightColors.map((hc) => (
-                  <button
-                    key={hc.name}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      editorRef.current?.focus();
-                      execCommand('hiliteColor', hc.color);
-                    }}
-                    className="w-6 h-6 rounded-md border border-border/50 flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-sm"
-                    style={{ backgroundColor: hc.color === 'transparent' ? 'transparent' : hc.color }}
-                    title={hc.name}
-                  >
-                    {hc.icon && <hc.icon size={12} className="text-text-muted" />}
-                  </button>
-                ))}
+              
+              <div className="relative">
+                <button 
+                  ref={highlighterBtnRef}
+                  onClick={() => setShowHighlighterPalette(!showHighlighterPalette)} 
+                  className={`p-1.5 rounded-lg transition-colors flex items-center gap-1 ${showHighlighterPalette ? 'bg-brand/10 text-brand' : 'text-text-muted hover:text-text hover:bg-surface-hover'}`}
+                  title="Highlight Color Palette"
+                >
+                  <Highlighter size={14} />
+                  <span className="text-[10px] font-black uppercase">Highlight</span>
+                </button>
+                
+                <AnimatePresence>
+                  {showHighlighterPalette && (
+                    <motion.div 
+                      ref={paletteRef}
+                      initial={{ opacity: 0, scale: 0.9, y: 5 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9, y: 5 }}
+                      className="absolute bottom-full left-0 mb-2 p-3 glass rounded-2xl border border-border shadow-2xl z-50 min-w-[280px]"
+                    >
+                      <div className="flex items-center justify-between mb-2 px-1">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-text-muted">Highlighter</span>
+                        <button onClick={() => setShowHighlighterPalette(false)} className="p-1 hover:bg-surface-hover rounded-md transition-colors">
+                          <X size={12} />
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-7 gap-1.5">
+                        {highlightColors.map((hc) => (
+                          <button
+                            key={hc.name}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              editorRef.current?.focus();
+                              execCommand('hiliteColor', hc.color);
+                            }}
+                            className="w-8 h-8 rounded-lg border border-border/50 flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-sm hover:shadow-md"
+                            style={{ backgroundColor: hc.color === 'transparent' ? 'transparent' : hc.color }}
+                            title={hc.name}
+                          >
+                            {hc.icon && <hc.icon size={14} className="text-text-muted" />}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               <div className="w-px h-5 bg-border mx-1" />
