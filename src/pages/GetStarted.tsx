@@ -61,7 +61,7 @@ export const GetStarted = () => {
       {/* Premium Navigation Bar */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
         <div className="max-w-7xl mx-auto glass border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between backdrop-blur-xl">
-          <div className="flex items-center gap-3">
+          <div className="flex justify-center">
             <div className="flex flex-col">
               <span className="text-3xl md:text-4xl font-black tracking-tighter italic leading-none text-brand">KFIRE GROUPS STUDY TRACKER</span>
               <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-brand mt-1.5 ml-0.5">Your Digital Partner in Excellence</span>
@@ -226,7 +226,7 @@ export const GetStarted = () => {
         
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
           <div className="text-center lg:text-left space-y-4">
-            <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
+            <div className="flex justify-center lg:justify-start mb-4">
               <span className="text-4xl md:text-5xl font-black italic tracking-tighter uppercase text-brand">HASH STUDY TRACKER</span>
             </div>
             <div className="space-y-1">

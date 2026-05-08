@@ -52,7 +52,7 @@ export const ShopPage = () => {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
       <header className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex justify-center">
           <div>
             <h1 className="text-3xl md:text-4xl font-black text-brand">Avatar Shop</h1>
             <p className="text-text-muted text-sm mt-1">Spend your hard-earned coins</p>

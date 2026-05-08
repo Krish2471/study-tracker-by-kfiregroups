@@ -158,7 +158,7 @@ export const AppLayout = () => {
       {/* Desktop Sidebar */}
       <aside className="w-80 hidden md:flex flex-col border-r border-border glass fixed h-full z-20">
         <div className="p-6 pb-4">
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex justify-center mb-2">
             <h1 className="text-4xl font-black tracking-tight leading-none">
               <span className="bg-gradient-to-r from-brand via-accent to-brand-light bg-clip-text text-transparent italic uppercase">HASH</span>
             </h1>
@@ -298,7 +298,7 @@ export const AppLayout = () => {
             <button onClick={() => setShowMoreNav(true)} className="md:hidden p-2 rounded-xl hover:bg-surface-hover">
               <Menu size={20} />
             </button>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center">
               <h2 className="text-2xl font-black italic tracking-tighter truncate md:hidden text-brand">HASH</h2>
               <div className="hidden md:flex items-center gap-3">
                 <ClockIcon size={16} className="text-brand" />
@@ -358,7 +358,7 @@ export const AppLayout = () => {
         <footer className="w-full py-12 px-8 border-t border-border bg-surface/30 mt-auto">
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
             <div className="text-center lg:text-left space-y-4">
-              <div className="flex items-center justify-center lg:justify-start gap-4 mb-2">
+              <div className="flex items-center justify-center lg:justify-start mb-2">
                 <h3 className="text-4xl md:text-5xl font-black italic tracking-tighter bg-gradient-to-r from-brand via-accent to-brand bg-clip-text text-transparent uppercase">
                   BUILD YOUR OWN WEBSITE
                 </h3>
