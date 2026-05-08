@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/purity */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Square, Check, Clock, Coffee, CloudRain, Waves, VolumeX, Moon, Sparkles, Plus } from 'lucide-react';

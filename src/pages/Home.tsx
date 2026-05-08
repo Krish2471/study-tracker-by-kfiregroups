@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/purity */
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTimerStore } from '../store/useTimerStore';

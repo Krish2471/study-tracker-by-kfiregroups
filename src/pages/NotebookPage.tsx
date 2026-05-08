@@ -168,8 +168,9 @@ export const NotebookPage = () => {
     if (type === 'image') input.accept = 'image/*';
     else if (type === 'audio') input.accept = 'audio/*';
     
-    input.onchange = (e: any) => {
-      const file = e.target.files?.[0];
+    input.onchange = (e: React.ChangeEvent<HTMLInputElement> | unknown) => {
+      const target = (e as React.ChangeEvent<HTMLInputElement>).target;
+      const file = target?.files?.[0];
       if (file && activeNotebookId && activeNotebook) {
         const url = URL.createObjectURL(file);
         const newAttachment = {

@@ -1,0 +1,74 @@
+
+> hash@0.0.0 lint
+> eslint .
+
+
+/Users/maxmobile/krish/src/pages/FlashcardsPage.tsx
+  43:6  warning  React Hook useMemo has a missing dependency: 'getDueCards'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/maxmobile/krish/src/pages/Home.tsx
+  53:36  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/maxmobile/krish/src/pages/Home.tsx:53:36
+  51 |
+  52 |   const quote = useMemo(() =>
+> 53 |     MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)],
+     |                                    ^^^^^^^^^^^^^ Cannot call impure function
+  54 |     []
+  55 |   );
+  56 |  react-hooks/purity
+
+/Users/maxmobile/krish/src/pages/NotebookPage.tsx
+   94:6   warning  React Hook useEffect has a missing dependency: 'activeNotebook'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  171:26  error    Unexpected any. Specify a different type                                                                           @typescript-eslint/no-explicit-any
+
+/Users/maxmobile/krish/src/pages/PlannerPage.tsx
+  44:6  warning  React Hook useMemo has a missing dependency: 'currentDate'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  51:6  warning  React Hook useMemo has a missing dependency: 'currentDate'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/maxmobile/krish/src/pages/ProgressPage.tsx
+  143:49  error  '_' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/maxmobile/krish/src/pages/TimerPage.tsx
+   99:6   warning  React Hook useEffect has a missing dependency: 'sounds'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                react-hooks/exhaustive-deps
+  218:30  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/maxmobile/krish/src/pages/TimerPage.tsx:218:30
+  216 |                   className="absolute bg-indigo-400/20 w-[1px] h-12"
+  217 |                   style={{
+> 218 |                     left: `${Math.random() * 100}%`,
+      |                              ^^^^^^^^^^^^^ Cannot call impure function
+  219 |                     top: `-10%`,
+  220 |                     animation: `fall ${0.5 + Math.random()}s linear infinite`,
+  221 |                     animationDelay: `${Math.random() * 2}s`  react-hooks/purity
+  220:46  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/maxmobile/krish/src/pages/TimerPage.tsx:220:46
+  218 |                     left: `${Math.random() * 100}%`,
+  219 |                     top: `-10%`,
+> 220 |                     animation: `fall ${0.5 + Math.random()}s linear infinite`,
+      |                                              ^^^^^^^^^^^^^ Cannot call impure function
+  221 |                     animationDelay: `${Math.random() * 2}s`
+  222 |                   }}
+  223 |                 />                                          react-hooks/purity
+  221:40  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/maxmobile/krish/src/pages/TimerPage.tsx:221:40
+  219 |                     top: `-10%`,
+  220 |                     animation: `fall ${0.5 + Math.random()}s linear infinite`,
+> 221 |                     animationDelay: `${Math.random() * 2}s`
+      |                                        ^^^^^^^^^^^^^ Cannot call impure function
+  222 |                   }}
+  223 |                 />
+  224 |               ))}                                                                                   react-hooks/purity
+
+✖ 11 problems (6 errors, 5 warnings)
+

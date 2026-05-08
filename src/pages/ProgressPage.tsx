@@ -140,7 +140,7 @@ export const ProgressPage = () => {
   const chartData = getChartData();
   const maxChartVal = Math.max(...chartData.map(d => d.minutes), 1);
   const subjectData = getSubjectData();
-  const totalForRange = subjectData.reduce((a, [_, secs]) => a + secs, 0) || 1;
+  const totalForRange = subjectData.reduce((a, [, secs]) => a + secs, 0) || 1;
 
   // Heatmap color intensity
   const getHeatmapColor = (mins: number) => {
