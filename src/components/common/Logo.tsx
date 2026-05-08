@@ -21,7 +21,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 40, showText 
             playsInline
             className="w-full h-full object-contain pointer-events-none"
           >
-            <source src="/logo.webm" type="video/webm" />
+            <source src="/logo.webm?v=2" type="video/webm" />
           </video>
         </div>
       </div>
