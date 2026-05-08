@@ -1,5 +1,4 @@
 import React from 'react';
-import logoVid from '../../assets/logo.webm?url';
 
 interface LogoProps {
   className?: string;
@@ -21,9 +20,8 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 40, showText 
             muted 
             playsInline
             className="w-full h-full object-contain pointer-events-none"
-            key={logoVid}
           >
-            <source src={logoVid} type="video/webm" />
+            <source src="/logo.webm" type="video/webm" />
           </video>
         </div>
       </div>
