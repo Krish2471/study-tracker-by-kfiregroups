@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { LEARNING_TECHNIQUES } from '../utils/constants';
 import { ChevronDown, ChevronUp, Lightbulb } from 'lucide-react';
 
 export const LearnPage = () => {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [showDetailId, setShowDetailId] = useState<string | null>(null);
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
@@ -55,13 +56,76 @@ export const LearnPage = () => {
                   className="bg-surface-hover/50 border-t border-border px-5 py-4"
                 >
                   <p className="text-xs font-bold text-text-muted uppercase tracking-wider mb-2">Try This Now</p>
-                  <p className="text-sm text-brand font-medium leading-relaxed">💡 {tech.prompt}</p>
+                  <p className="text-sm text-brand font-medium leading-relaxed mb-4">💡 {tech.prompt}</p>
+                  
+                  {tech.detailedContent && (
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowDetailId(tech.id);
+                      }}
+                      className="w-full py-2 bg-brand/10 text-brand text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-brand/20 transition-all"
+                    >
+                      Learn More Details
+                    </button>
+                  )}
                 </motion.div>
               )}
             </motion.div>
           );
         })}
       </div>
+
+      <AnimatePresence>
+        {showDetailId && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4"
+            onClick={() => setShowDetailId(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              className="glass rounded-[2rem] p-8 border border-brand/30 max-w-2xl w-full shadow-glow-brand"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {(() => {
+                const tech = LEARNING_TECHNIQUES.find(t => t.id === showDetailId);
+                if (!tech) return null;
+                return (
+                  <>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl border ${tech.color}`}>
+                        {tech.emoji}
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-black">{tech.name}</h2>
+                        <p className="text-text-muted text-xs font-bold uppercase tracking-widest">Technique Deep Dive</p>
+                      </div>
+                    </div>
+                    
+                    <div className="prose prose-invert max-w-none mb-8">
+                      <div className="text-text-secondary leading-relaxed whitespace-pre-line text-sm bg-surface/50 p-6 rounded-2xl border border-border">
+                        {tech.detailedContent || 'Detailed guide coming soon...'}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => setShowDetailId(null)}
+                      className="w-full py-4 bg-brand text-white font-black uppercase tracking-widest rounded-2xl hover:bg-brand-dark transition-all shadow-glow-brand"
+                    >
+                      Got it, thanks!
+                    </button>
+                  </>
+                );
+              })()}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

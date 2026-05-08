@@ -21,8 +21,8 @@ export function useSyncService() {
   const unsubscribesRef = useRef<(() => void)[]>([]);
 
   useEffect(() => {
-    // Skip sync in guest mode, when not authenticated, or when Firebase isn't configured
-    if (!isAuthenticated || !user || isGuestMode || !db) return;
+    // Skip sync when not authenticated or when Firebase isn't configured
+    if (!isAuthenticated || !user || !db) return;
 
     const firestore = db; // narrowed to non-null Firestore
     const uid = user.uid;

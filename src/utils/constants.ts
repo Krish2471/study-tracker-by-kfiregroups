@@ -6,6 +6,13 @@ export const LEARNING_TECHNIQUES = [
     color: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
     description: 'Explain the concept in simple terms as if teaching a child. If you struggle, identify the gap and review.',
     prompt: 'Try explaining what you just learned in 3 simple sentences. Pretend you\'re teaching a 5-year-old.',
+    detailedContent: `
+The Feynman Technique is a four-step process for deep learning:
+1. **Choose a concept**: Write the name of the concept at the top of a blank page.
+2. **Teach it to a child**: Explain the concept in simple language. Avoid jargon. Use analogies.
+3. **Identify gaps**: Where did you get stuck? Go back to the source material to relearn those parts.
+4. **Review and Simplify**: Refine your explanation until it is crystal clear.
+    `
   },
   {
     id: 'spaced-rep',
@@ -14,6 +21,12 @@ export const LEARNING_TECHNIQUES = [
     color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
     description: 'Review material at increasing intervals: 1 day, 3 days, 7 days, 14 days, 30 days.',
     prompt: 'Schedule your next review: tomorrow, then in 3 days, then a week from now.',
+    detailedContent: `
+Spaced Repetition leverages the "Spacing Effect":
+1. **The Forgetting Curve**: We forget info quickly after learning.
+2. **Interrupted Forgetting**: Reviewing info right before you forget it strengthens the memory.
+3. **Increasing Intervals**: Each successful recall allows for a longer gap before the next review.
+    `
   },
   {
     id: 'active-recall',
@@ -22,6 +35,12 @@ export const LEARNING_TECHNIQUES = [
     color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
     description: 'Close your notes and try to recall everything you just studied. Write it down from memory.',
     prompt: 'Close your book. Write down everything you remember about this topic RIGHT NOW.',
+    detailedContent: `
+Active Recall is the most effective study method:
+1. **Testing, not Reading**: Re-reading notes is passive. Recalling info from memory is active.
+2. **Retrieval Strength**: The effort of trying to remember something makes the memory significantly stronger.
+3. **Instant Feedback**: You immediately know what you don't know.
+    `
   },
   {
     id: 'interleaving',

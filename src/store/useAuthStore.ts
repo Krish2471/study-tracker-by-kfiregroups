@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   signOut as firebaseSignOut,
   onAuthStateChanged,
+  signInAnonymously,
   type User,
 } from 'firebase/auth';
 import { auth, googleProvider, isFirebaseConfigured } from '../lib/firebaseConfig';
@@ -16,7 +17,7 @@ interface AuthState {
   error: string | null;
 
   signInWithGoogle: () => Promise<void>;
-  signInAsGuest: () => void;
+  signInAsGuest: () => Promise<void>;
   signOut: () => Promise<void>;
   initAuthListener: () => () => void;
   clearError: () => void;
@@ -45,13 +46,24 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      signInAsGuest: () => {
-        set({
-          user: null,
-          isAuthenticated: true,
-          isGuestMode: true,
-          isLoading: false,
-        });
+      signInAsGuest: async () => {
+        if (!auth) {
+          set({ 
+            user: null,
+            isAuthenticated: true,
+            isGuestMode: true,
+            isLoading: false,
+          });
+          return;
+        }
+        try {
+          set({ isLoading: true, error: null });
+          await signInAnonymously(auth);
+          set({ isGuestMode: true });
+        } catch (error: unknown) {
+          const message = error instanceof Error ? error.message : 'Guest sign-in failed';
+          set({ isLoading: false, error: message });
+        }
       },
       signOut: async () => {
         try {

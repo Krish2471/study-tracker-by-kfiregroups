@@ -27,10 +27,7 @@ export const NotebookPage = () => {
   const [filterSubject, setFilterSubject] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
   const [isDrawingMode, setIsDrawingMode] = useState(false);
-  const [showHighlighterPalette, setShowHighlighterPalette] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
-  const paletteRef = useRef<HTMLDivElement>(null);
-  const highlighterBtnRef = useRef<HTMLButtonElement>(null);
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeNotebook = notebooks.find((n) => n.id === activeNotebookId);
@@ -83,17 +80,6 @@ export const NotebookPage = () => {
     updateNotebook(activeNotebookId, { content: editorRef.current.innerHTML });
   };
 
-  // Close palette on click outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (paletteRef.current && !paletteRef.current.contains(event.target as Node) && 
-          highlighterBtnRef.current && !highlighterBtnRef.current.contains(event.target as Node)) {
-        setShowHighlighterPalette(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   // Set editor content when active notebook changes
   useEffect(() => {
@@ -452,6 +438,28 @@ export const NotebookPage = () => {
                   </button>
                 )
               )}
+
+              <div className="w-px h-5 bg-border mx-1" />
+              <div className="flex items-center gap-1.5 px-2 py-1 bg-surface-hover/30 rounded-xl border border-border/50">
+                <Highlighter size={12} className="text-text-muted mr-1" />
+                {highlightColors.map((hc) => (
+                  <button
+                    key={hc.name}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      editorRef.current?.focus();
+                      execCommand('hiliteColor', hc.color);
+                    }}
+                    className="w-6 h-6 rounded-md border border-border/50 flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-sm"
+                    style={{ backgroundColor: hc.color === 'transparent' ? 'transparent' : hc.color }}
+                    title={hc.name}
+                  >
+                    {hc.icon && <hc.icon size={12} className="text-text-muted" />}
+                  </button>
+                ))}
+              </div>
+
               <div className="w-px h-5 bg-border mx-1" />
               <button onClick={() => handleImportFile('image')} className="p-1.5 rounded-lg hover:bg-surface-hover text-text-muted hover:text-text transition-colors" title="Import Image">
                 <ImageIcon size={14} />
@@ -462,49 +470,6 @@ export const NotebookPage = () => {
               <button onClick={() => handleImportFile('file')} className="p-1.5 rounded-lg hover:bg-surface-hover text-text-muted hover:text-text transition-colors" title="Import File">
                 <Paperclip size={14} />
               </button>
-              <div className="relative">
-                <button 
-                  ref={highlighterBtnRef}
-                  onClick={() => setShowHighlighterPalette(!showHighlighterPalette)} 
-                  className={`p-1.5 rounded-lg transition-colors flex items-center gap-1 ${showHighlighterPalette ? 'bg-brand/10 text-brand' : 'text-text-muted hover:text-text hover:bg-surface-hover'}`}
-                  title="Highlight Color Palette"
-                >
-                  <Highlighter size={14} />
-                  <span className="text-[10px] font-black uppercase">Highlight</span>
-                </button>
-                
-                <AnimatePresence>
-                  {showHighlighterPalette && (
-                    <motion.div 
-                      ref={paletteRef}
-                      initial={{ opacity: 0, scale: 0.9, y: 5 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.9, y: 5 }}
-                      className="absolute top-full left-0 mt-2 p-2 glass rounded-xl border border-border shadow-xl z-50 flex gap-1.5 min-w-[200px]"
-                    >
-                      {highlightColors.map((hc) => (
-                        <button
-                          key={hc.name}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            editorRef.current?.focus();
-                            // Restore selection if possible
-                            execCommand('hiliteColor', hc.color);
-                            setShowHighlighterPalette(false);
-                          }}
-                          className="w-8 h-8 rounded-lg border border-border/50 flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-sm hover:shadow-md"
-                          style={{ backgroundColor: hc.color === 'transparent' ? 'transparent' : hc.color }}
-                          title={hc.name}
-                        >
-                          {hc.icon && <hc.icon size={14} className="text-text-muted" />}
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
               <div className="w-px h-5 bg-border mx-1" />
               <button onClick={() => setIsDrawingMode(true)} className="p-1.5 rounded-lg hover:bg-brand/10 text-brand transition-colors flex items-center gap-1" title="Scribble / Hand-draw">
                 <PenTool size={14} />
