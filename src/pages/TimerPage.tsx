@@ -147,15 +147,27 @@ export const TimerPage = () => {
       }`}
     >
       {/* Use Headphones Banner */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-center gap-3 py-3 px-6 rounded-2xl bg-brand/10 border border-brand/20 text-brand font-black text-xs uppercase tracking-widest shadow-sm"
-      >
-        <VolumeX size={16} className="animate-pulse" />
-        Use Headphones for better experience
-        <VolumeX size={16} className="animate-pulse" />
-      </motion.div>
+      <div className="space-y-3">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-center gap-3 py-3 px-6 rounded-2xl bg-brand/10 border border-brand/20 text-brand font-black text-xs uppercase tracking-widest shadow-sm"
+        >
+          <VolumeX size={16} className="animate-pulse" />
+          Use Headphones for better experience
+          <VolumeX size={16} className="animate-pulse" />
+        </motion.div>
+
+        {!isRunning && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em]"
+          >
+            Please select a subject before starting the timer
+          </motion.p>
+        )}
+      </div>
 
       {/* Current Time */}
       <div className="text-center">

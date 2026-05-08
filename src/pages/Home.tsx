@@ -113,7 +113,6 @@ export const HomePage = () => {
             <div className="w-10 h-10 rounded-2xl bg-brand/10 flex items-center justify-center text-brand">
               <Clock size={20} />
             </div>
-            <span className="text-[10px] font-black text-success bg-success/10 px-2 py-0.5 rounded-full">+12%</span>
           </div>
           <p className="text-xs font-bold text-text-muted uppercase tracking-wider">Today's Focus</p>
           <div className="flex items-baseline gap-1 mt-1">
