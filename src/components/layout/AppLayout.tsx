@@ -54,27 +54,27 @@ export const AppLayout = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const CoinInfo = ({ isMobile = false }) => (
+  const CoinInfo = () => (
     <AnimatePresence>
       {showCoinInfo && (
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 10 }}
-          className={`absolute ${isMobile ? 'top-full left-0 mt-3' : 'top-full right-0 mt-3'} w-72 p-4 glass rounded-2xl border border-coin/30 shadow-glow-coin z-[60]`}
+          className="absolute top-full right-0 mt-3 w-64 p-3.5 glass rounded-2xl border border-coin/30 shadow-glow-coin z-[60]"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-full bg-coin/20 flex items-center justify-center">
-              <Coins size={16} className="text-coin" />
+          <div className="flex items-center gap-2 mb-2.5">
+            <div className="w-7 h-7 rounded-full bg-coin/20 flex items-center justify-center">
+              <Coins size={14} className="text-coin" />
             </div>
-            <p className="font-black text-sm text-coin uppercase tracking-wider">Coin Rewards</p>
+            <p className="font-black text-[11px] text-coin uppercase tracking-wider">Rewards Info</p>
           </div>
-          <p className="text-xs leading-relaxed font-medium">
-            Every minute you spend in the timer is equal to <span className="text-coin font-black">one coin</span>, and you can use it in the <Link to="/shop" className="text-brand font-black hover:underline" onClick={() => setShowCoinInfo(false)}>shop section</Link> in the website.
+          <p className="text-[10px] leading-relaxed font-medium">
+            1 min timer = <span className="text-coin font-black">1 coin</span>. Spend them in the <Link to="/shop" className="text-brand font-black hover:underline" onClick={() => setShowCoinInfo(false)}>shop</Link>.
           </p>
-          <div className="mt-3 pt-3 border-t border-border flex items-center justify-between text-[10px] font-bold text-text-muted">
-            <span>Keep studying to earn more!</span>
+          <div className="mt-2.5 pt-2.5 border-t border-border flex items-center justify-between text-[9px] font-bold text-text-muted">
+            <span>Keep studying!</span>
             <button onClick={() => setShowCoinInfo(false)} className="text-brand hover:underline">Close</button>
           </div>
         </motion.div>
@@ -164,18 +164,9 @@ export const AppLayout = () => {
                 <p className="text-sm font-bold">{level.name}</p>
               </div>
             </div>
-            <div 
-              className="flex items-center gap-1.5 bg-coin/10 px-3 py-1.5 rounded-full cursor-help hover:bg-coin/20 transition-colors relative"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowCoinInfo(!showCoinInfo);
-              }}
-            >
+            <div className="flex items-center gap-1.5 bg-coin/10 px-3 py-1.5 rounded-full">
               <Coins size={14} className="text-coin" />
               <span className="text-sm font-bold text-coin">{coins}</span>
-              <div className="absolute left-0 top-full mt-2" ref={coinInfoRef}>
-                 <CoinInfo isMobile={true} />
-              </div>
             </div>
           </div>
           <div className="w-full h-2 bg-border rounded-full overflow-hidden">

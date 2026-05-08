@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTimerStore } from '../store/useTimerStore';
 import { useGameStore } from '../store/useGameStore';
@@ -20,6 +20,7 @@ export const HomePage = () => {
   const { totalXP, streak, getLevel } = useGameStore();
   const { tasks, toggleTask } = useTaskStore();
   const { events } = usePlannerStore();
+  const [planActivated, setPlanActivated] = useState(false);
 
   const level = getLevel();
 
@@ -361,8 +362,15 @@ export const HomePage = () => {
             <div className="p-4 rounded-2xl bg-bg border border-border italic text-[11px] leading-relaxed text-text-secondary">
               "Based on your recent activity, try a 25-minute Pomodoro for **{todaySubjects[0]?.[0] || 'your favorite subject'}** to maintain your streak."
             </div>
-            <button className="w-full py-2 bg-surface-hover hover:bg-border text-[10px] font-black uppercase tracking-widest rounded-xl transition-colors border border-border">
-              Accept Focus Plan
+            <button 
+              onClick={() => setPlanActivated(true)}
+              className={`w-full py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all border ${
+                planActivated 
+                  ? 'bg-success text-white border-success shadow-glow-success scale-[1.02]' 
+                  : 'bg-surface-hover hover:bg-border text-text-secondary border-border'
+              }`}
+            >
+              {planActivated ? 'Plan Activated' : 'Accept Focus Plan'}
             </button>
           </div>
         </div>
