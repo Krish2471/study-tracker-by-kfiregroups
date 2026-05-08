@@ -46,6 +46,15 @@ export const HomePage = () => {
     return Array.from(map.entries()).sort((a, b) => b[1] - a[1]);
   }, [todaySessions]);
 
+  const hoursRemaining = useMemo(() => {
+    const now = new Date();
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
+    return Math.max(0, Math.floor((endOfDay.getTime() - now.getTime()) / (1000 * 60 * 60)));
+  }, []);
+
+  const hasStudiedToday = todaySessions.length > 0;
+
   const quote = useMemo(() =>
     MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)],
     []
@@ -146,8 +155,12 @@ export const HomePage = () => {
             <p className="text-3xl font-black">{streak}</p>
             <p className="text-sm font-bold text-text-muted">days</p>
           </div>
-          <p className="mt-4 text-[10px] font-bold text-orange-500 flex items-center gap-1">
-            <AlertCircle size={10} /> 4 hours left to keep it!
+          <p className={`mt-4 text-[10px] font-bold flex items-center gap-1 ${hasStudiedToday ? 'text-success' : 'text-orange-500'}`}>
+            <AlertCircle size={10} /> 
+            {hasStudiedToday 
+              ? 'Today\'s streak maintained!' 
+              : `${hoursRemaining} hours left to keep it!`
+            }
           </p>
         </div>
 
