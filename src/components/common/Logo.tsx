@@ -14,15 +14,17 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 40, showText 
         className="relative group cursor-pointer" 
         style={{ width: size, height: size }}
       >
-        <div className="relative w-full h-full flex items-center justify-center">
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
           <video 
-            src={logoVid} 
             autoPlay 
             loop 
             muted 
             playsInline
-            className="w-full h-full object-contain"
-          />
+            className="w-full h-full object-contain pointer-events-none"
+            key={logoVid}
+          >
+            <source src={logoVid} type="video/webm" />
+          </video>
         </div>
       </div>
       
