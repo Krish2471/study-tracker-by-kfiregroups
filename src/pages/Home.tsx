@@ -192,6 +192,74 @@ export const HomePage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Progress Chart & Exam Countdown */}
         <div className="lg:col-span-2 space-y-6">
+          {/* Main Goals & Exams Section (Large & Visible) */}
+          {(exams.length > 0 || goals.length > 0) && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {exams.length > 0 && (
+                <div className="glass rounded-[2rem] p-8 border-2 border-danger/20 bg-danger/5 shadow-glow-danger/10 flex flex-col justify-between min-h-[220px]">
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-danger/20 flex items-center justify-center text-danger">
+                        <Trophy size={24} />
+                      </div>
+                      <h3 className="font-black text-2xl text-danger uppercase tracking-tighter">Upcoming Exams</h3>
+                    </div>
+                    <div className="space-y-4">
+                      {exams.slice(0, 1).map(exam => {
+                        const daysLeft = differenceInDays(new Date(exam.date), new Date());
+                        return (
+                          <div key={exam.id} className="flex items-center justify-between">
+                            <div>
+                              <p className="text-xl font-black text-text-primary">{exam.title}</p>
+                              <p className="text-sm font-bold text-text-muted mt-1">{format(new Date(exam.date), 'MMMM do, yyyy')}</p>
+                              <span className="inline-block mt-2 text-[10px] font-black text-danger bg-danger/10 px-3 py-1 rounded-full uppercase tracking-widest border border-danger/20">
+                                {exam.subject}
+                              </span>
+                            </div>
+                            <div className="text-right">
+                              <p className={`text-6xl font-black leading-none ${daysLeft <= 7 ? 'text-danger animate-pulse' : 'text-text'}`}>{daysLeft}</p>
+                              <p className="text-[10px] font-black text-text-muted uppercase tracking-widest mt-1">Days Left</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <Link to="/exams" className="inline-flex items-center gap-2 text-xs font-black text-danger hover:underline mt-6">
+                    View All Exams <ChevronRight size={14} />
+                  </Link>
+                </div>
+              )}
+
+              {goals.length > 0 && (
+                <div className="glass rounded-[2rem] p-8 border-2 border-accent/20 bg-accent/5 flex flex-col justify-between min-h-[220px]">
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-accent/20 flex items-center justify-center text-accent">
+                        <Target size={24} />
+                      </div>
+                      <h3 className="font-black text-2xl text-accent uppercase tracking-tighter">Focus Goals</h3>
+                    </div>
+                    <div className="space-y-4">
+                      {goals.filter(g => !g.completed).slice(0, 1).map(goal => (
+                        <div key={goal.id}>
+                          <p className="text-xl font-black text-text-primary">{goal.title}</p>
+                          <div className="flex items-center gap-2 mt-2">
+                            <Calendar size={14} className="text-accent" />
+                            <p className="text-sm font-bold text-text-muted uppercase tracking-wider">Target: {format(new Date(goal.targetDate), 'MMM d, yyyy')}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <Link to="/exams" className="inline-flex items-center gap-2 text-xs font-black text-accent hover:underline mt-6">
+                    Manage My Goals <ChevronRight size={14} />
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Weekly Activity Chart */}
           <div className="glass rounded-[2rem] p-6 border border-border">
             <div className="flex items-center justify-between mb-6">
@@ -289,54 +357,6 @@ export const HomePage = () => {
 
         {/* Right Column: Schedule & Tasks */}
         <div className="space-y-6">
-          {/* Goals & Exams Section */}
-          <div className="space-y-4">
-            {exams.length > 0 && (
-              <div className="glass rounded-[2rem] p-6 border border-danger/20 bg-danger/5 shadow-glow-danger/10">
-                <div className="flex items-center gap-2 mb-4">
-                  <Trophy size={18} className="text-danger" />
-                  <h3 className="font-black text-lg text-danger uppercase tracking-tighter">Exams</h3>
-                </div>
-                <div className="space-y-3">
-                  {exams.slice(0, 2).map(exam => {
-                    const daysLeft = differenceInDays(new Date(exam.date), new Date());
-                    return (
-                      <div key={exam.id} className="flex items-center justify-between p-3 rounded-2xl bg-surface/80 border border-danger/10">
-                        <div>
-                          <p className="text-xs font-black truncate max-w-[120px]">{exam.title}</p>
-                          <p className="text-[9px] font-bold text-text-muted mt-0.5">{format(new Date(exam.date), 'MMM d, yyyy')}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className={`text-xl font-black ${daysLeft <= 7 ? 'text-danger animate-pulse' : 'text-text'}`}>{daysLeft}</p>
-                          <p className="text-[8px] font-black text-text-muted uppercase tracking-tighter">Days Left</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <Link to="/exams" className="block text-center text-[9px] font-black text-danger/60 hover:text-danger uppercase tracking-widest mt-4">View All Exams</Link>
-              </div>
-            )}
-
-            {goals.length > 0 && (
-              <div className="glass rounded-[2rem] p-6 border border-accent/20 bg-accent/5">
-                <div className="flex items-center gap-2 mb-4">
-                  <Target size={18} className="text-accent" />
-                  <h3 className="font-black text-lg text-accent uppercase tracking-tighter">Goals</h3>
-                </div>
-                <div className="space-y-3">
-                  {goals.filter(g => !g.completed).slice(0, 2).map(goal => (
-                    <div key={goal.id} className="p-3 rounded-2xl bg-surface/80 border border-accent/10">
-                      <p className="text-xs font-black truncate">{goal.title}</p>
-                      <p className="text-[9px] font-bold text-text-muted mt-0.5 uppercase tracking-wider">Deadline: {format(new Date(goal.targetDate), 'MMM d')}</p>
-                    </div>
-                  ))}
-                </div>
-                <Link to="/exams" className="block text-center text-[9px] font-black text-accent/60 hover:text-accent uppercase tracking-widest mt-4">Manage Goals</Link>
-              </div>
-            )}
-          </div>
-
           {/* Quick Tasks */}
           <div className="glass rounded-[2rem] p-6 border border-border">
             <div className="flex items-center justify-between mb-5">
