@@ -14,6 +14,71 @@ import {
 import { format } from 'date-fns';
 import { Logo } from '../common/Logo';
 
+const CoinButtonWithPopover = ({ coins, isSidebar = false }: { coins: number; isSidebar?: boolean }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
+  return (
+    <div className="relative" ref={popoverRef}>
+      <button 
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }}
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all active:scale-95 ${
+          isSidebar 
+            ? 'bg-coin/10 border-transparent hover:bg-coin/20' 
+            : 'bg-coin/10 text-coin border-coin/20 hover:bg-coin/20'
+        }`}
+      >
+        <Coins size={isSidebar ? 14 : 16} className={isSidebar ? 'text-coin' : ''} />
+        <span className={`font-black ${isSidebar ? 'text-sm text-coin' : 'text-sm'}`}>{coins}</span>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 5 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 5 }}
+            className={`absolute z-[100] mt-3 w-64 p-4 glass rounded-2xl border border-coin/30 shadow-glow-coin ${
+              isSidebar ? 'left-0' : 'right-0'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-2 mb-2.5">
+              <div className="w-8 h-8 rounded-full bg-coin/20 flex items-center justify-center">
+                <Coins size={16} className="text-coin" />
+              </div>
+              <p className="font-black text-[11px] text-coin uppercase tracking-wider">Rewards Info</p>
+            </div>
+            <p className="text-[10px] leading-relaxed font-medium">
+              1 min timer = <span className="text-coin font-black">1 coin</span>. Spend them in the <Link to="/shop" className="text-brand font-black hover:underline" onClick={() => setIsOpen(false)}>shop</Link>.
+            </p>
+            <div className="mt-2.5 pt-2.5 border-t border-border flex items-center justify-between text-[9px] font-bold text-text-muted">
+              <span>Keep studying!</span>
+              <button onClick={() => setIsOpen(false)} className="text-brand hover:underline">Close</button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 export const AppLayout = () => {
   const { theme, toggleTheme } = useTheme();
   const [time, setTime] = useState(new Date());
@@ -41,71 +106,6 @@ export const AppLayout = () => {
 
   const displayName = profile?.name || user?.displayName || 'Student';
   const displayPhoto = profile?.photoUrl || user?.photoURL || '';
-  const CoinButtonWithPopover = ({ coins, isSidebar = false }: { coins: number; isSidebar?: boolean }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const popoverRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-          setIsOpen(false);
-        }
-      };
-      if (isOpen) {
-        document.addEventListener('mousedown', handleClickOutside);
-      }
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isOpen]);
-
-    return (
-      <div className="relative" ref={popoverRef}>
-        <button 
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setIsOpen(!isOpen);
-          }}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all active:scale-95 ${
-            isSidebar 
-              ? 'bg-coin/10 border-transparent hover:bg-coin/20' 
-              : 'bg-coin/10 text-coin border-coin/20 hover:bg-coin/20'
-          }`}
-        >
-          <Coins size={isSidebar ? 14 : 16} className={isSidebar ? 'text-coin' : ''} />
-          <span className={`font-black ${isSidebar ? 'text-sm text-coin' : 'text-sm'}`}>{coins}</span>
-        </button>
-
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 5 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 5 }}
-              className={`absolute z-[100] mt-3 w-64 p-4 glass rounded-2xl border border-coin/30 shadow-glow-coin ${
-                isSidebar ? 'left-0' : 'right-0'
-              }`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-2 mb-2.5">
-                <div className="w-8 h-8 rounded-full bg-coin/20 flex items-center justify-center">
-                  <Coins size={16} className="text-coin" />
-                </div>
-                <p className="font-black text-[11px] text-coin uppercase tracking-wider">Rewards Info</p>
-              </div>
-              <p className="text-[10px] leading-relaxed font-medium">
-                1 min timer = <span className="text-coin font-black">1 coin</span>. Spend them in the <Link to="/shop" className="text-brand font-black hover:underline" onClick={() => setIsOpen(false)}>shop</Link>.
-              </p>
-              <div className="mt-2.5 pt-2.5 border-t border-border flex items-center justify-between text-[9px] font-bold text-text-muted">
-                <span>Keep studying!</span>
-                <button onClick={() => setIsOpen(false)} className="text-brand hover:underline">Close</button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    );
-  };
-
 
   // Count total due flashcards
   const totalDue = decks.reduce((acc, deck) => {
@@ -135,7 +135,6 @@ export const AppLayout = () => {
     { name: 'Notebook', path: '/notebook', icon: FileText },
     { name: 'Planner', path: '/planner', icon: Calendar },
   ];
-
   const mobileMoreNav = [
     { name: 'Progress', path: '/progress', icon: BarChart3 },
     { name: 'Learn', path: '/learn', icon: BookOpen },
