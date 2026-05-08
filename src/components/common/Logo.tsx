@@ -1,5 +1,4 @@
 import React from 'react';
-import { LOGO_DATA } from './LogoData';
 
 interface LogoProps {
   className?: string;
@@ -22,7 +21,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 40, showText 
             playsInline
             className="w-full h-full object-contain pointer-events-none"
           >
-            <source src={LOGO_DATA} type="video/webm" />
+            <source src={`/logo.webm?t=${Date.now()}`} type="video/webm" />
           </video>
         </div>
       </div>
