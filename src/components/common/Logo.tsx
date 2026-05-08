@@ -1,5 +1,5 @@
 import React from 'react';
-import logoVid from '../../assets/logo.webm';
+import logoVid from '../../assets/logo.webm?url';
 
 interface LogoProps {
   className?: string;
