@@ -9,7 +9,7 @@ import { useFlashcardStore } from '../../store/useFlashcardStore';
 import {
   Home, Timer, BarChart3, ShoppingBag, BookOpen, Sun, Moon, Coins,
   FileText, Calendar, Brain, User, CheckSquare, Target,
-  Menu, Bell, Clock as ClockIcon, Flame, Users, Phone, Mail
+  Menu, Bell, Clock as ClockIcon, Flame, Users, Phone, Mail, CloudCheck
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { Logo } from '../common/Logo';
@@ -313,6 +313,10 @@ export const AppLayout = () => {
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
+              <div className="hidden lg:flex items-center gap-1.5 px-2 py-1 bg-brand/5 text-brand/50 rounded-lg border border-brand/10">
+                <CloudCheck size={12} />
+                <span className="text-[10px] font-black uppercase tracking-widest">Cloud Synced</span>
+              </div>
               <>
                 {/* Streak */}
                 <div className="flex items-center gap-1.5 bg-orange-500/10 text-orange-500 px-3 py-1.5 rounded-xl border border-orange-500/20">

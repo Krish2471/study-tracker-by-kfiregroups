@@ -505,7 +505,7 @@ export const NotebookPage = () => {
                         {highlightColors.map((hc) => (
                           <button
                             key={hc.name}
-                            onClick={(e) => {
+                            onMouseDown={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
                               editorRef.current?.focus();
