@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
 import { 
   Sparkles, ArrowRight, Brain, Target, 
-  Phone, Mail, Clock, ChevronRight
+  Phone, Mail, Clock
 } from 'lucide-react';
 import { Logo } from '../components/common/Logo';
 
@@ -63,7 +63,10 @@ export const GetStarted = () => {
         <div className="max-w-7xl mx-auto glass border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between backdrop-blur-xl">
           <div className="flex items-center gap-3">
             <Logo size={40} />
-            <span className="text-2xl font-black tracking-tighter italic">KFIRE GROUPS STUDY TRACKER</span>
+            <div className="flex flex-col">
+              <span className="text-2xl font-black tracking-tighter italic leading-none">KFIRE GROUPS STUDY TRACKER</span>
+              <span className="text-[7px] font-black uppercase tracking-[0.4em] text-brand mt-1 ml-0.5">Your Digital Partner in Excellence</span>
+            </div>
           </div>
           
           <div className="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-text-muted">
@@ -191,7 +194,7 @@ export const GetStarted = () => {
       <section id="features" className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">Master Your Academic Life</h2>
+            <h2 id="about" className="text-4xl md:text-5xl font-black tracking-tight mb-4">Master Your Academic Life</h2>
             <p className="text-text-muted text-lg max-w-2xl mx-auto">Everything you need to stay focused, organized, and ahead of the curve.</p>
           </div>
           
@@ -208,10 +211,7 @@ export const GetStarted = () => {
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${f.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity -mr-16 -mt-16 rounded-full`} />
                 <f.icon size={40} className="text-brand mb-6 group-hover:scale-110 transition-transform" />
                 <h3 className="text-2xl font-black mb-3">{f.title}</h3>
-                <p className="text-text-muted leading-relaxed mb-6">{f.desc}</p>
-                <div className="flex items-center gap-2 text-brand font-bold text-sm">
-                  Learn more <ChevronRight size={16} />
-                </div>
+                <p className="text-text-muted leading-relaxed">{f.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -220,7 +220,7 @@ export const GetStarted = () => {
 
       {/* Premium Footer & Contact Bar */}
       {/* Global Footer */}
-      <footer className="w-full py-20 px-8 border-t border-border bg-surface/30 mt-auto relative overflow-hidden">
+      <footer id="contact" className="w-full py-20 px-8 border-t border-border bg-surface/30 mt-auto relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-brand/5 rounded-full blur-[100px] -z-10" />
         
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">

@@ -6,22 +6,22 @@
 
 @layer base {
   :root {
-    --bg: #f8fafc;
+    --bg: #fdfdfd;
     --surface: #ffffff;
     --surface-rgb: 255, 255, 255;
-    --surface-hover: #f1f5f9;
-    --border: #e2e8f0;
-    --text: #0f172a;
+    --surface-hover: #f9fafb;
+    --border: #f1f5f9;
+    --text: #1e293b;
     --text-muted: #64748b;
     --text-secondary: #475569;
-    --brand: #6366f1;
-    --brand-light: #818cf8;
-    --brand-dark: #4f46e5;
-    --accent: #ec4899;
+    --brand: #7c3aed;
+    --brand-light: #a78bfa;
+    --brand-dark: #6d28d9;
+    --accent: #f43f5e;
     --success: #10b981;
     --danger: #ef4444;
     --warning: #f59e0b;
-    --coin: #eab308;
+    --coin: #ca8a04;
   }
 
   .dark {
