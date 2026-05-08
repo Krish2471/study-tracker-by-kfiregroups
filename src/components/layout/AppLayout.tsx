@@ -41,46 +41,70 @@ export const AppLayout = () => {
 
   const displayName = profile?.name || user?.displayName || 'Student';
   const displayPhoto = profile?.photoUrl || user?.photoURL || '';
-  const [showCoinInfo, setShowCoinInfo] = useState(false);
-  const coinInfoRef = useRef<HTMLDivElement>(null);
+  const CoinButtonWithPopover = ({ coins, isSidebar = false }: { coins: number; isSidebar?: boolean }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const popoverRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (coinInfoRef.current && !coinInfoRef.current.contains(event.target as Node)) {
-        setShowCoinInfo(false);
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+          setIsOpen(false);
+        }
+      };
+      if (isOpen) {
+        document.addEventListener('mousedown', handleClickOutside);
       }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isOpen]);
 
-  const CoinInfo = () => (
-    <AnimatePresence>
-      {showCoinInfo && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 10 }}
-          className="absolute top-full right-0 mt-3 w-64 p-3.5 glass rounded-2xl border border-coin/30 shadow-glow-coin z-[60]"
-          onClick={(e) => e.stopPropagation()}
+    return (
+      <div className="relative" ref={popoverRef}>
+        <button 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsOpen(!isOpen);
+          }}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all active:scale-95 ${
+            isSidebar 
+              ? 'bg-coin/10 border-transparent hover:bg-coin/20' 
+              : 'bg-coin/10 text-coin border-coin/20 hover:bg-coin/20'
+          }`}
         >
-          <div className="flex items-center gap-2 mb-2.5">
-            <div className="w-7 h-7 rounded-full bg-coin/20 flex items-center justify-center">
-              <Coins size={14} className="text-coin" />
-            </div>
-            <p className="font-black text-[11px] text-coin uppercase tracking-wider">Rewards Info</p>
-          </div>
-          <p className="text-[10px] leading-relaxed font-medium">
-            1 min timer = <span className="text-coin font-black">1 coin</span>. Spend them in the <Link to="/shop" className="text-brand font-black hover:underline" onClick={() => setShowCoinInfo(false)}>shop</Link>.
-          </p>
-          <div className="mt-2.5 pt-2.5 border-t border-border flex items-center justify-between text-[9px] font-bold text-text-muted">
-            <span>Keep studying!</span>
-            <button onClick={() => setShowCoinInfo(false)} className="text-brand hover:underline">Close</button>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+          <Coins size={isSidebar ? 14 : 16} className={isSidebar ? 'text-coin' : ''} />
+          <span className={`font-black ${isSidebar ? 'text-sm text-coin' : 'text-sm'}`}>{coins}</span>
+        </button>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 5 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 5 }}
+              className={`absolute z-[100] mt-3 w-64 p-4 glass rounded-2xl border border-coin/30 shadow-glow-coin ${
+                isSidebar ? 'left-0' : 'right-0'
+              }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-2 mb-2.5">
+                <div className="w-8 h-8 rounded-full bg-coin/20 flex items-center justify-center">
+                  <Coins size={16} className="text-coin" />
+                </div>
+                <p className="font-black text-[11px] text-coin uppercase tracking-wider">Rewards Info</p>
+              </div>
+              <p className="text-[10px] leading-relaxed font-medium">
+                1 min timer = <span className="text-coin font-black">1 coin</span>. Spend them in the <Link to="/shop" className="text-brand font-black hover:underline" onClick={() => setIsOpen(false)}>shop</Link>.
+              </p>
+              <div className="mt-2.5 pt-2.5 border-t border-border flex items-center justify-between text-[9px] font-bold text-text-muted">
+                <span>Keep studying!</span>
+                <button onClick={() => setIsOpen(false)} className="text-brand hover:underline">Close</button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
 
 
   // Count total due flashcards
@@ -164,10 +188,7 @@ export const AppLayout = () => {
                 <p className="text-sm font-bold">{level.name}</p>
               </div>
             </div>
-            <div className="flex items-center gap-1.5 bg-coin/10 px-3 py-1.5 rounded-full">
-              <Coins size={14} className="text-coin" />
-              <span className="text-sm font-bold text-coin">{coins}</span>
-            </div>
+              <CoinButtonWithPopover coins={coins} isSidebar={true} />
           </div>
           <div className="w-full h-2 bg-border rounded-full overflow-hidden">
             <div className="level-bar h-full rounded-full" style={{ width: `${level.progress}%` }} />
@@ -292,19 +313,7 @@ export const AppLayout = () => {
                 </div>
 
                 {/* Coins */}
-                <div className="relative" ref={coinInfoRef}>
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowCoinInfo(!showCoinInfo);
-                    }}
-                    className="flex items-center gap-1.5 bg-coin/10 text-coin px-3 py-1.5 rounded-xl border border-coin/20 hover:bg-coin/20 transition-all active:scale-95"
-                  >
-                    <Coins size={16} />
-                    <span className="text-sm font-black">{coins}</span>
-                  </button>
-                  <CoinInfo />
-                </div>
+                <CoinButtonWithPopover coins={coins} />
 
                 <button className="p-2 text-text-muted hover:text-text rounded-xl hover:bg-surface-hover relative hidden sm:block">
                   <Bell size={20} />
