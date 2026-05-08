@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../hooks/useTheme';
 import { useGameStore } from '../../store/useGameStore';
 import { useProfileStore } from '../../store/useProfileStore';
@@ -40,6 +41,45 @@ export const AppLayout = () => {
 
   const displayName = profile?.name || user?.displayName || 'Student';
   const displayPhoto = profile?.photoUrl || user?.photoURL || '';
+  const [showCoinInfo, setShowCoinInfo] = useState(false);
+  const coinInfoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (coinInfoRef.current && !coinInfoRef.current.contains(event.target as Node)) {
+        setShowCoinInfo(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const CoinInfo = () => (
+    <AnimatePresence>
+      {showCoinInfo && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 10 }}
+          className="absolute top-full right-0 mt-3 w-72 p-4 glass rounded-2xl border border-coin/30 shadow-glow-coin z-[60]"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-full bg-coin/20 flex items-center justify-center">
+              <Coins size={16} className="text-coin" />
+            </div>
+            <p className="font-black text-sm text-coin uppercase tracking-wider">Coin Rewards</p>
+          </div>
+          <p className="text-xs leading-relaxed font-medium">
+            Every minute you spend in the timer is equal to <span className="text-coin font-black">one coin</span>, and you can use it in the <Link to="/shop" className="text-brand font-black hover:underline">shop section</Link> in the website.
+          </p>
+          <div className="mt-3 pt-3 border-t border-border flex items-center justify-between text-[10px] font-bold text-text-muted">
+            <span>Keep studying to earn more!</span>
+            <button onClick={() => setShowCoinInfo(false)} className="text-brand hover:underline">Close</button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 
 
   // Count total due flashcards
@@ -123,9 +163,21 @@ export const AppLayout = () => {
                 <p className="text-sm font-bold">{level.name}</p>
               </div>
             </div>
-            <div className="flex items-center gap-1.5 bg-coin/10 px-3 py-1.5 rounded-full">
+            <div 
+              className="flex items-center gap-1.5 bg-coin/10 px-3 py-1.5 rounded-full cursor-help hover:bg-coin/20 transition-colors relative"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowCoinInfo(!showCoinInfo);
+              }}
+            >
               <Coins size={14} className="text-coin" />
               <span className="text-sm font-bold text-coin">{coins}</span>
+              {showCoinInfo && (
+                <div ref={coinInfoRef} className="absolute left-0 top-0 w-full h-full" />
+              )}
+              <div className="absolute left-[-150%] bottom-full mb-2">
+                <CoinInfo />
+              </div>
             </div>
           </div>
           <div className="w-full h-2 bg-border rounded-full overflow-hidden">
@@ -251,9 +303,15 @@ export const AppLayout = () => {
                 </div>
 
                 {/* Coins */}
-                <div className="flex items-center gap-1.5 bg-coin/10 text-coin px-3 py-1.5 rounded-xl border border-coin/20">
-                  <Coins size={16} />
-                  <span className="text-sm font-black">{coins}</span>
+                <div className="relative">
+                  <button 
+                    onClick={() => setShowCoinInfo(!showCoinInfo)}
+                    className="flex items-center gap-1.5 bg-coin/10 text-coin px-3 py-1.5 rounded-xl border border-coin/20 hover:bg-coin/20 transition-all active:scale-95"
+                  >
+                    <Coins size={16} />
+                    <span className="text-sm font-black">{coins}</span>
+                  </button>
+                  <CoinInfo />
                 </div>
 
                 <button className="p-2 text-text-muted hover:text-text rounded-xl hover:bg-surface-hover relative hidden sm:block">
