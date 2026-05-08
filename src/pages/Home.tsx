@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { MOTIVATIONAL_QUOTES } from '../utils/constants';
 import { format, isToday } from 'date-fns';
-import { Logo } from '../components/common/Logo';
+
 
 export const HomePage = () => {
   const { sessions } = useTimerStore();
@@ -47,7 +47,7 @@ export const HomePage = () => {
   }, [todaySessions]);
 
 
-  const hasStudiedToday = todaySessions.length > 0;
+
 
   const quote = useMemo(() =>
     MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)],

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore, AVATAR_SHOP, type AvatarItem } from '../store/useGameStore';
 import { Coins, Lock, Check, ShoppingBag } from 'lucide-react';
-import { Logo } from '../components/common/Logo';
+
 
 export const ShopPage = () => {
   const { coins, ownedItems, equippedItems, getLevel, buyItem, equipItem, unequipItem } = useGameStore();
@@ -53,9 +53,8 @@ export const ShopPage = () => {
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Logo size={48} />
           <div>
-            <h1 className="text-2xl md:text-3xl font-black">Avatar Shop</h1>
+            <h1 className="text-3xl md:text-4xl font-black text-brand">Avatar Shop</h1>
             <p className="text-text-muted text-sm mt-1">Spend your hard-earned coins</p>
           </div>
         </div>

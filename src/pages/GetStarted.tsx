@@ -6,7 +6,7 @@ import {
   Sparkles, ArrowRight, Brain, Target, 
   Phone, Mail, Clock
 } from 'lucide-react';
-import { Logo } from '../components/common/Logo';
+
 
 export const GetStarted = () => {
   const navigate = useNavigate();
@@ -62,10 +62,9 @@ export const GetStarted = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
         <div className="max-w-7xl mx-auto glass border border-white/10 rounded-2xl px-6 py-3 flex items-center justify-between backdrop-blur-xl">
           <div className="flex items-center gap-3">
-            <Logo size={40} />
             <div className="flex flex-col">
-              <span className="text-2xl font-black tracking-tighter italic leading-none">KFIRE GROUPS STUDY TRACKER</span>
-              <span className="text-[7px] font-black uppercase tracking-[0.4em] text-brand mt-1 ml-0.5">Your Digital Partner in Excellence</span>
+              <span className="text-3xl md:text-4xl font-black tracking-tighter italic leading-none text-brand">KFIRE GROUPS STUDY TRACKER</span>
+              <span className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-brand mt-1.5 ml-0.5">Your Digital Partner in Excellence</span>
             </div>
           </div>
           
@@ -114,7 +113,7 @@ export const GetStarted = () => {
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-surface-hover border border-border text-[11px] font-black uppercase tracking-[0.3em] text-brand mb-4 shadow-xl"
           >
-            <Logo size={16} /> The Future of Learning is Here
+            <span className="text-brand mr-1">✦</span> The Future of Learning is Here
           </motion.div>
           
           <motion.h1 
@@ -227,9 +226,8 @@ export const GetStarted = () => {
         
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
           <div className="text-center lg:text-left space-y-4">
-            <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
-              <Logo size={48} />
-              <span className="text-3xl font-black italic tracking-tighter uppercase">HASH STUDY TRACKER</span>
+            <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
+              <span className="text-4xl md:text-5xl font-black italic tracking-tighter uppercase text-brand">HASH STUDY TRACKER</span>
             </div>
             <div className="space-y-1">
               <h3 className="text-4xl md:text-5xl font-black italic tracking-tighter bg-gradient-to-r from-brand via-accent to-brand bg-clip-text text-transparent">

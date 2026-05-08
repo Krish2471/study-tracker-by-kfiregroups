@@ -12,7 +12,6 @@ import {
   Menu, Bell, Clock as ClockIcon, Flame, Users, Phone, Mail, CloudCheck
 } from 'lucide-react';
 import { format } from 'date-fns';
-import { Logo } from '../common/Logo';
 
 const CoinButtonWithPopover = memo(({ coins, isSidebar = false }: { coins: number; isSidebar?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -160,8 +159,7 @@ export const AppLayout = () => {
       <aside className="w-80 hidden md:flex flex-col border-r border-border glass fixed h-full z-20">
         <div className="p-6 pb-4">
           <div className="flex items-center gap-3 mb-2">
-            <Logo size={48} />
-            <h1 className="text-2xl font-black tracking-tight leading-none">
+            <h1 className="text-4xl font-black tracking-tight leading-none">
               <span className="bg-gradient-to-r from-brand via-accent to-brand-light bg-clip-text text-transparent italic uppercase">HASH</span>
             </h1>
           </div>
@@ -284,10 +282,9 @@ export const AppLayout = () => {
         {/* Footer Branding */}
         <div className="px-6 py-4 border-t border-border">
           <div className="flex flex-col items-center justify-center gap-2">
-            <Logo size={24} />
             <div className="text-center">
-              <p className="text-[7px] font-bold tracking-widest uppercase text-text-muted">HASH STUDY TRACKER</p>
-              <p className="text-[8px] font-black text-brand uppercase tracking-widest">Created by KFIRE GROUPS</p>
+              <p className="text-[9px] font-bold tracking-widest uppercase text-text-muted">HASH STUDY TRACKER</p>
+              <p className="text-[10px] font-black text-brand uppercase tracking-widest">Created by KFIRE GROUPS</p>
             </div>
           </div>
         </div>
@@ -302,8 +299,7 @@ export const AppLayout = () => {
               <Menu size={20} />
             </button>
             <div className="flex items-center gap-3">
-              <Logo size={32} className="md:hidden" />
-              <h2 className="text-xl font-black italic tracking-tighter truncate md:hidden">HASH</h2>
+              <h2 className="text-2xl font-black italic tracking-tighter truncate md:hidden text-brand">HASH</h2>
               <div className="hidden md:flex items-center gap-3">
                 <ClockIcon size={16} className="text-brand" />
                 <span className="text-sm font-mono font-bold">{format(time, 'HH:mm:ss')}</span>
@@ -363,8 +359,7 @@ export const AppLayout = () => {
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
             <div className="text-center lg:text-left space-y-4">
               <div className="flex items-center justify-center lg:justify-start gap-4 mb-2">
-                <Logo size={64} />
-                <h3 className="text-3xl font-black italic tracking-tighter bg-gradient-to-r from-brand via-accent to-brand bg-clip-text text-transparent uppercase">
+                <h3 className="text-4xl md:text-5xl font-black italic tracking-tighter bg-gradient-to-r from-brand via-accent to-brand bg-clip-text text-transparent uppercase">
                   BUILD YOUR OWN WEBSITE
                 </h3>
               </div>
@@ -457,10 +452,9 @@ export const AppLayout = () => {
                 {theme === 'dark' ? 'Light' : 'Dark'}
               </button>
               <div className="flex flex-col items-center gap-0.5 opacity-50">
-                <p className="text-[7px] font-bold tracking-widest uppercase">HASH STUDY TRACKER</p>
+                <p className="text-[8px] font-bold tracking-widest uppercase">HASH STUDY TRACKER</p>
                 <div className="flex items-center gap-1.5">
-                  <Logo size={12} />
-                  <span className="text-[9px] font-black text-brand uppercase tracking-widest">KFIRE GROUPS</span>
+                  <span className="text-[10px] font-black text-brand uppercase tracking-widest">KFIRE GROUPS</span>
                 </div>
               </div>
               <button onClick={signOut} className="text-xs text-brand flex items-center gap-1.5">
