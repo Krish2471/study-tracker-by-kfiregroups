@@ -14,14 +14,22 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 40, showText 
         style={{ width: size, height: size }}
       >
         <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+          {/* Static Fallback (Always visible or primary) */}
+          <img 
+            src="/logo.png" 
+            alt="KFIRE GROUPS Logo"
+            className="w-full h-full object-contain group-hover:opacity-0 transition-opacity duration-300"
+          />
+          
+          {/* Animated Version (Visible on hover) */}
           <video 
             autoPlay 
             loop 
             muted 
             playsInline
-            className="w-full h-full object-contain pointer-events-none"
+            className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
-            <source src={`/logo.webm?t=${Date.now()}`} type="video/webm" />
+            <source src="/logo.webm" type="video/webm" />
           </video>
         </div>
       </div>
