@@ -485,15 +485,19 @@ export const NotebookPage = () => {
                       {highlightColors.map((hc) => (
                         <button
                           key={hc.name}
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            editorRef.current?.focus();
+                            // Restore selection if possible
                             execCommand('hiliteColor', hc.color);
                             setShowHighlighterPalette(false);
                           }}
-                          className="w-7 h-7 rounded-lg border border-border/50 flex items-center justify-center transition-transform hover:scale-110 active:scale-95 shadow-sm"
+                          className="w-8 h-8 rounded-lg border border-border/50 flex items-center justify-center transition-all hover:scale-110 active:scale-95 shadow-sm hover:shadow-md"
                           style={{ backgroundColor: hc.color === 'transparent' ? 'transparent' : hc.color }}
                           title={hc.name}
                         >
-                          {hc.icon && <hc.icon size={12} className="text-text-muted" />}
+                          {hc.icon && <hc.icon size={14} className="text-text-muted" />}
                         </button>
                       ))}
                     </motion.div>

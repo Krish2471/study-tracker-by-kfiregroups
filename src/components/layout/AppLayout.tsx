@@ -54,14 +54,15 @@ export const AppLayout = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const CoinInfo = () => (
+  const CoinInfo = ({ isMobile = false }) => (
     <AnimatePresence>
       {showCoinInfo && (
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 10 }}
-          className="absolute top-full right-0 mt-3 w-72 p-4 glass rounded-2xl border border-coin/30 shadow-glow-coin z-[60]"
+          className={`absolute ${isMobile ? 'top-full left-0 mt-3' : 'top-full right-0 mt-3'} w-72 p-4 glass rounded-2xl border border-coin/30 shadow-glow-coin z-[60]`}
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-full bg-coin/20 flex items-center justify-center">
@@ -70,7 +71,7 @@ export const AppLayout = () => {
             <p className="font-black text-sm text-coin uppercase tracking-wider">Coin Rewards</p>
           </div>
           <p className="text-xs leading-relaxed font-medium">
-            Every minute you spend in the timer is equal to <span className="text-coin font-black">one coin</span>, and you can use it in the <Link to="/shop" className="text-brand font-black hover:underline">shop section</Link> in the website.
+            Every minute you spend in the timer is equal to <span className="text-coin font-black">one coin</span>, and you can use it in the <Link to="/shop" className="text-brand font-black hover:underline" onClick={() => setShowCoinInfo(false)}>shop section</Link> in the website.
           </p>
           <div className="mt-3 pt-3 border-t border-border flex items-center justify-between text-[10px] font-bold text-text-muted">
             <span>Keep studying to earn more!</span>
@@ -172,11 +173,8 @@ export const AppLayout = () => {
             >
               <Coins size={14} className="text-coin" />
               <span className="text-sm font-bold text-coin">{coins}</span>
-              {showCoinInfo && (
-                <div ref={coinInfoRef} className="absolute left-0 top-0 w-full h-full" />
-              )}
-              <div className="absolute left-[-150%] bottom-full mb-2">
-                <CoinInfo />
+              <div className="absolute left-0 top-full mt-2" ref={coinInfoRef}>
+                 <CoinInfo isMobile={true} />
               </div>
             </div>
           </div>
@@ -303,9 +301,12 @@ export const AppLayout = () => {
                 </div>
 
                 {/* Coins */}
-                <div className="relative">
+                <div className="relative" ref={coinInfoRef}>
                   <button 
-                    onClick={() => setShowCoinInfo(!showCoinInfo)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowCoinInfo(!showCoinInfo);
+                    }}
                     className="flex items-center gap-1.5 bg-coin/10 text-coin px-3 py-1.5 rounded-xl border border-coin/20 hover:bg-coin/20 transition-all active:scale-95"
                   >
                     <Coins size={16} />

@@ -7,7 +7,8 @@ interface DrawingCanvasProps {
 }
 
 const COLORS = [
-  '#000000', '#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#db2777'
+  '#000000', '#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#db2777',
+  '#0d9488', '#4f46e5', '#9333ea', '#c026d3', '#e11d48', '#f59e0b', '#10b981'
 ];
 
 export const DrawingCanvas = ({ onSave, onClose }: DrawingCanvasProps) => {
