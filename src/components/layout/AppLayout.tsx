@@ -293,19 +293,20 @@ export const AppLayout = () => {
       {/* Main Content */}
       <main className="flex-1 md:ml-80 relative overflow-y-auto min-h-screen">
         {/* Top Header */}
-        <header className="sticky top-0 z-20 glass border-b border-border px-5 md:px-8 py-4 flex items-center justify-between">
+        <header className="sticky top-0 z-20 glass border-b border-border px-5 md:px-8 py-4 flex items-center justify-between relative">
           <div className="flex items-center gap-4 flex-1">
-            <button onClick={() => setShowMoreNav(true)} className="md:hidden p-2 rounded-xl hover:bg-surface-hover">
+            <button onClick={() => setShowMoreNav(true)} className="md:hidden p-2 rounded-xl hover:bg-surface-hover z-10">
               <Menu size={20} />
             </button>
-            <div className="flex items-center">
-              <h2 className="text-2xl font-black italic tracking-tighter truncate md:hidden text-brand">HASH</h2>
-              <div className="hidden md:flex items-center gap-3">
-                <ClockIcon size={16} className="text-brand" />
-                <span className="text-sm font-mono font-bold">{format(time, 'HH:mm:ss')}</span>
-                <span className="text-xs font-bold text-text-muted border-l border-border pl-3 ml-1 uppercase tracking-widest">{format(time, 'EEEE, MMM d')}</span>
-              </div>
+            <div className="hidden md:flex items-center gap-3">
+              <ClockIcon size={16} className="text-brand" />
+              <span className="text-sm font-mono font-bold">{format(time, 'HH:mm:ss')}</span>
+              <span className="text-xs font-bold text-text-muted border-l border-border pl-3 ml-1 uppercase tracking-widest">{format(time, 'EEEE, MMM d')}</span>
             </div>
+          </div>
+
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:hidden">
+            <h2 className="text-2xl font-black italic tracking-tighter text-brand">HASH</h2>
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
